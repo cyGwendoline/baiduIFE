@@ -17,18 +17,19 @@
     width: 90%;
     margin: 0 auto;
     border: 1px solid #9f9f9f;
+    overflow: hidden;
 }
 /*基础样式设置*/
 .clear {
     clear: both;
 }
-.box:after{
+/*.box:after{
     content:"";
     height:0;
     visibility:hidden;
     display:block;
     clear:both;
-}
+}*/
 /*消除浮动影响*/
 .li_style {
     float: left;
