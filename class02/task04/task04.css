@@ -1,0 +1,44 @@
+/*@charset "utf-8;*/
+* {padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
+.form_style {
+    border: 1px solid #9f9f9f;
+    font-weight: bold;
+    float: left;
+    padding: 3px;
+    margin: 10px;
+    background-color: #fafafa;
+    border-radius: 2px;
+}
+.box {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #9f9f9f;
+}
+/*基础样式设置*/
+.clear {
+    clear: both;
+}
+.box:after{
+    content:"";
+    height:0;
+    visibility:hidden;
+    display:block;
+    clear:both;
+}
+/*消除浮动影响*/
+.li_style {
+    float: left;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 1px solid #c50000;
+    width: 50px;
+    height:50px;
+    line-height: 50px;
+    text-align: center;
+    margin: 10px 20px;
+}
+/*队列元素样式*/
