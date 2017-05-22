@@ -46,12 +46,20 @@ function remove(dir) {
         var id_right=ul.lastChild.id;
         var dom_left=ul.firstChild.innerHTML;
         var dom_right=ul.lastChild.innerHTML;
-        if(dir=="left" && parseInt(id_left)>1){
-            ul.removeChild(ul.firstChild);
-            alert(dom_left);
-        }else if(dir="right" && parseInt(id_right)>1){
-            ul.removeChild(ul.lastChild);
-            alert(dom_right);
+        if(dir=="left"){
+            if(parseInt(id_left)>0){
+                ul.removeChild(ul.firstChild);
+                alert(dom_left);
+            }else {
+                ul.removeChild(ul.firstChild);
+            }
+        }else if(dir=="right"){
+            if(parseInt(id_right)>0){
+                ul.removeChild(ul.lastChild);
+                alert(dom_right);
+            }else {
+                ul.removeChild(ul.lastChild);
+            }
         }
     }
 }
@@ -64,8 +72,8 @@ function createDom(data) {
     var node_li=document.createElement("li");
     node_li.innerHTML=data;
     node_li.setAttribute("class","li_style");
-    var childnotes=getId("show").childNodes.length;
-    var child_id=childnotes+1;
+
+    var child_id=Counter();
     node_li.id=String(child_id);
     node_li.onclick=function () {Del(String(child_id));};
     return node_li;
@@ -79,3 +87,16 @@ function Del(code) {
     var thisnode=getId(code);
     ul.removeChild(thisnode);
 }
+/**
+ * Counter
+ * 计数器
+ * 返回总插入次数
+ */
+var Counter=(function(){
+    //赋初值
+    var count=0;
+    //外部调用时形成闭包
+    return function(){
+        return ++count;
+    }
+})() ;
