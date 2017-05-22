@@ -33,6 +33,7 @@
 /*消除浮动影响*/
 .li_style {
     float: left;
+    list-style:none;
     background-color: #ff0000;
     color: #ffffff;
     border: 1px solid #c50000;
