@@ -24,6 +24,7 @@ function getId(x) {
  */
 function add(dir) {
     var data=getId("number").value;
+    countChildNode("show");
     toNumber(data,dir);
 }
 /**
@@ -116,5 +117,18 @@ function toNumber(obj,dir) {
             alert("请输入10~100之间的数字");
             return false;
         }
+    }
+}
+/**
+ * countChildNode
+ * 统计队列元素数量
+ * 队列元素数量最多限制为60个，当超过60个时，添加元素时alert出提示
+ */
+function countChildNode(father) {
+    var count=getId(father).childNodes.length;
+    if(count>60){
+        alert("您已达到最大上限60个");
+    }else {
+        return true;
     }
 }
