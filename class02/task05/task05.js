@@ -65,9 +65,10 @@ function createDom(data) {
     var node_li=document.createElement("li");
     node_li.innerHTML=data;
     node_li.setAttribute("class","li_style");
-
     var child_id=Counter();
     node_li.id=String(child_id);
+    node_li.style.left="0px";
+    node_li.style.height=data+"px";//数字大小以高度表示
     node_li.onclick=function () {Del(String(child_id));};
     return node_li;
 }
@@ -109,8 +110,17 @@ function toNumber(obj,dir) {
             var node_li = createDom(data);
             var ul = getId("show");
             if(dir=="left") {
-                ul.insertBefore(node_li,ul.firstChild);
+                var childs=getId("show").childNodes;
+                if(childs.length==1 && node_li.id=="1") {
+                    ul.insertBefore(node_li,ul.firstChild);
+                    ul.removeChild(ul.childNodes[1]);
+                }else {
+                    toMove(childs);
+                    ul.insertBefore(node_li,ul.firstChild);
+                }
             }else if(dir=="right"){
+                var count_all=getId("show").childNodes.length;
+                node_li.style.left=count_all*30+"px";/*右插入时将元素置于最后*/
                 ul.appendChild(node_li);
             }
         }else{
@@ -130,5 +140,18 @@ function countChildNode(father) {
         alert("您已达到最大上限60个");
     }else {
         return true;
+    }
+}
+/**
+ * toMove
+ * 左插入时，将队列中的元素向右移动一位
+ */
+function toMove(childN) {
+    var count=childN.length;
+    for(var i=count-1;i>-1;i--) {
+        var now_child_left=childN[i].style.left;
+        now_child_left=parseInt(now_child_left);
+        var re_child_left=(now_child_left+30);
+        childN[i].style.left=re_child_left+"px";
     }
 }
