@@ -1,14 +1,10 @@
 /**
  * 给各个按钮分别绑定一个点击事件
  */
-var leftin=getId("left_in");
-var rightin=getId("right_in");
-var leftout=getId("left_out");
-var rightout=getId("right_out");
-leftin.onclick=function () {add("left");};
-rightin.onclick=function () {add("right");};
-leftout.onclick=function () {remove("left");};
-rightout.onclick=function () {remove("right");};
+getId("left_in").onclick=function () {add("left");};
+getId("right_in").onclick=function () {add("right");};
+getId("left_out").onclick=function () {remove("left");};
+getId("right_out").onclick=function () {remove("right");};
 /**
  * getId方法
  * 封装getElementById()方法，通过x=getId(x)调用
@@ -188,4 +184,50 @@ function DelToMove(node) {
         }
     }
 
+}
+
+/**
+ * sort
+ * 冒泡排序
+ */
+getId("sort").onclick=function () {Sort();};
+function Sort() {
+    var nodes=getId("show").childNodes;
+    var len=nodes.length;
+    if(len==0) {
+        alert("没有可排序元素，请先插入1");
+    }else if(len==1) {
+        if(!nodes.id) {
+            alert("没有可排序元素，请先插入2");
+        }else {
+            alert("元素已排序");
+        }
+    }else {
+        bubbleSort(len);
+        return;
+    }
+}
+
+function bubbleSort(len) {
+    var groups=[];
+    for (var g=0;g<len;g++){
+        groups[g]=[];
+        groups[g][0]=getId("show").childNodes[g];
+        groups[g][1]=getId("show").childNodes[g].innerHTML;
+
+    }
+    for(var i=0;i<len;i++) {
+        for(var j=0;j<len-i-1;j++){
+            var len_1 = parseInt(groups[j][1]);
+            var len_2 = parseInt(groups[j+1][1]);
+            if (len_1 > len_2) {
+                var class_ch = groups[j][0].style.left;
+                groups[j][0].style.left = groups[j+1][0].style.left;
+                groups[j+1][0].style.left = class_ch;
+                var g_ch=groups[j];
+                groups[j]=groups[j+1];
+                groups[j+1]=g_ch;
+            }
+        }
+    }
 }
