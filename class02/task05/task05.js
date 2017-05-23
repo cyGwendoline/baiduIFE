@@ -32,7 +32,8 @@ function add(dir) {
  * 删除子节点，并显示该子节点内容
  */
 function remove(dir) {
-    var childnotes=getId("show").childNodes.length;
+    var childs=getId("show").childNodes;
+    var childnotes=childs.length;
     var ul=getId("show");
     if(childnotes>0){
         var id_left=ul.firstChild.id;
@@ -42,6 +43,7 @@ function remove(dir) {
         if(dir=="left"){
             if(parseInt(id_left)>0){
                 ul.removeChild(ul.firstChild);
+                removeToMove(childs);
                 alert(dom_left);
             }else {
                 ul.removeChild(ul.firstChild);
@@ -80,6 +82,7 @@ function Del(code) {
     var ul=getId("show");
     var thisnode=getId(code);
     ul.removeChild(thisnode);
+    DelToMove(thisnode);
 }
 /**
  * Counter
@@ -115,12 +118,12 @@ function toNumber(obj,dir) {
                     ul.insertBefore(node_li,ul.firstChild);
                     ul.removeChild(ul.childNodes[1]);
                 }else {
-                    toMove(childs);
+                    addToMove(childs);
                     ul.insertBefore(node_li,ul.firstChild);
                 }
             }else if(dir=="right"){
                 var count_all=getId("show").childNodes.length;
-                node_li.style.left=count_all*30+"px";/*右插入时将元素置于最后*/
+                node_li.style.left=count_all*30+"px";
                 ul.appendChild(node_li);
             }
         }else{
@@ -143,10 +146,10 @@ function countChildNode(father) {
     }
 }
 /**
- * toMove
+ * addToMove
  * 左插入时，将队列中的元素向右移动一位
  */
-function toMove(childN) {
+function addToMove(childN) {
     var count=childN.length;
     for(var i=count-1;i>-1;i--) {
         var now_child_left=childN[i].style.left;
@@ -154,4 +157,35 @@ function toMove(childN) {
         var re_child_left=(now_child_left+30);
         childN[i].style.left=re_child_left+"px";
     }
+}
+/**
+ * removeToMove
+ * 左删除时，将队列中的元素向左移动一位
+ */
+function removeToMove(childN) {
+    var count=childN.length;
+    for(var i=0;i<count;i++) {
+        var now_child_left=childN[i].style.left;
+        now_child_left=parseInt(now_child_left);
+        var re_child_left=(now_child_left-30);
+        childN[i].style.left=re_child_left+"px";
+    }
+}
+/**
+ * DelToMove
+ * 删除任一元素时，将元素右侧的所有元素向左移动一位
+ */
+function DelToMove(node) {
+    var childN=getId("show").childNodes;
+    var count=childN.length;
+    if(count>1) {
+        var start=parseInt(node.style.left)/30;
+        for(var i=start;i<count;i++) {
+            var now_child_left=childN[i].style.left;
+            now_child_left=parseInt(now_child_left);
+            var re_child_left=(now_child_left-30);
+            childN[i].style.left=re_child_left+"px";
+        }
+    }
+
 }
